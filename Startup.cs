@@ -27,7 +27,7 @@ namespace commander
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
+            // Our `CommandsController` receives a constructor arg of type ICommanderRepo. How does it know? Does this method pass in the implementation `MockCommanderRepo` as the first argument to each controller that is registered?
             services.AddScoped<ICommanderRepo, MockCommanderRepo>();
         }
 
