@@ -1,3 +1,4 @@
+using commander.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace commander.Data
@@ -8,5 +9,8 @@ namespace commander.Data
         {
 
         }
+
+        public DbSet<Command> Commands { get; set; }
+
     }
 }
