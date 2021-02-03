@@ -38,5 +38,14 @@ namespace commander.Data
         {
             return (this._context.SaveChanges() >= 0);
         }
+
+        public void UpdateCommand(Command command)
+        {
+            if (command == null)
+            {
+                throw new ArgumentNullException(nameof(command));
+            }
+            this._context.Commands.Update(command);
+        }
     }
 }
