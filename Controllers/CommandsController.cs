@@ -21,6 +21,19 @@ namespace commander.Controllers
             this._repository = repository;
         }
 
+        [HttpPost]
+        public ActionResult<CommandReadDto> CreateCommand(CommandCreateDto commandCreateDto)
+        {
+            var commandModel = this._mapper.Map<Command>(commandCreateDto);
+
+            this._repository.CreateCommand(commandModel);
+            this._repository.SaveChanges();
+
+            var commandReadDto = this._mapper.Map<CommandReadDto>(commandModel);
+
+            return CreatedAtRoute(nameof(this.GetCommandById), new { Id = commandReadDto.Id }, commandReadDto);
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<CommandReadDto>> GetAllCommands()
         {
@@ -29,7 +42,7 @@ namespace commander.Controllers
         }
 
         // GET with params: api/commands/{id}
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name = "GetCommandById")]
         public ActionResult<CommandReadDto> GetCommandById(int id)
         {
             var commandItem = this._repository.GetCommandById(id);
