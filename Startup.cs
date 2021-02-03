@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using commander.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,8 @@ namespace commander
             services.AddDbContext<CommanderContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("CommanderConnection")));
 
             services.AddControllers();
+
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             // Our `CommandsController` receives a constructor arg of type ICommanderRepo. How does it know? Does this method pass in the implementation `MockCommanderRepo` as the first argument to each controller that is registered?
             services.AddScoped<ICommanderRepo, SqlCommanderRepo>();
         }
